@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+bool file_exists(const char *filename);
 
 int main()
 {
@@ -26,8 +30,23 @@ int main()
         printf("Fehler bein Oeffnen des Files\n\n");
     }
 
-    fprintf(filePointer, "Name;Zuname;Alter;Groesse\n");
-    fprintf(filePointer, "%s;%s;%d;%f", name, name2, age, height);
+    if(!file_exists("Fabian_Schieder.csv")){
+        fprintf(filePointer, "Name;Zuname;Alter;Groesse\n");
+    }
+
+    fprintf(filePointer, "%s;%s;%d;%f\n", name, name2, age, height);
 
 return 0;
+}
+
+bool file_exists(const char *filename)
+{
+    FILE* filePointer;
+    filePointer = fopen(filename, "r");
+
+    if(!filePointer){
+        return 0;
+    }
+
+    return 1;
 }
